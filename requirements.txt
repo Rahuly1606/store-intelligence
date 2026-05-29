@@ -1,0 +1,37 @@
+# Web framework & server
+fastapi==0.111.0
+uvicorn[standard]==0.30.0
+
+# Data validation
+pydantic==2.7.3
+
+# Object detection & tracking
+ultralytics==8.2.24
+boxmot==10.0.84
+
+# Video processing
+opencv-python-headless==4.9.0.80
+
+# Numerical & data
+numpy==1.26.4
+pandas==2.2.2
+
+# Database (SQLite via built-in sqlite3, but we also include SQLAlchemy for optional advanced usage)
+sqlalchemy==2.0.31
+
+# Configuration
+pyyaml==6.0.3
+
+# Testing
+pytest==8.2.2
+httpx==0.27.0
+pytest-asyncio==0.23.7
+
+# Structured logging
+python-json-logger==2.0.7
+
+# Terminal dashboard (bonus)
+rich==13.7.1
+
+# HTTP client for pipeline-to-API communication (bonus)
+requests==2.32.3

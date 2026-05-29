@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: store-intelligence-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount local data directory (read-only for safety)
+      - ./data:/app/data:ro
+    environment:
+      - LOG_LEVEL=INFO
+      - DATABASE_URL=sqlite:///app/store.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
