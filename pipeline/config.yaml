@@ -1,0 +1,24 @@
+store_layout_path: "data/store_layout.json"
+model_weights: "yolov8n.pt"
+confidence_threshold: 0.3
+tracker: "bytetrack"
+track_thresh: 0.3
+track_buffer: 30
+match_thresh: 0.3
+staff_detection:
+  enabled: true
+  color_lower: [100, 50, 50]
+  color_upper: [130, 255, 255]
+entry_line:
+  x1: 100
+  y1: 400
+  x2: 500
+  y2: 400
+dwell_interval_sec: 30
+queue_detection:
+  enabled: true
+  proximity_threshold: 80
+pos_correlation:
+  enabled: false
+  time_window_min: 5
+output_path: "events.jsonl"
