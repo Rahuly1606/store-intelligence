@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Store Intelligence{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col">
+        <h2><i class="bi bi-graph-up"></i> Store Analytics Dashboard</h2>
+        <p class="text-muted">Store ID: <strong id="storeIdDisplay">{{ store_id }}</strong></p>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-outline-primary" id="refreshBtn">
+            <i class="bi bi-arrow-clockwise"></i> Refresh
+        </button>
+    </div>
+</div>
+
+<!-- Metrics Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <i class="bi bi-people"></i> Unique Visitors
+                </h6>
+                <h2 class="card-title mb-0" id="uniqueVisitors">-</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <i class="bi bi-cart-check"></i> Conversion Rate
+                </h6>
+                <h2 class="card-title mb-0" id="conversionRate">-</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <i class="bi bi-people-fill"></i> Queue Depth
+                </h6>
+                <h2 class="card-title mb-0" id="queueDepth">-</h2>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">
+                    <i class="bi bi-x-circle"></i> Abandonment Rate
+                </h6>
+                <h2 class="card-title mb-0" id="abandonmentRate">-</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row g-3 mb-4">
+    <!-- Conversion Funnel -->
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-funnel"></i> Conversion Funnel</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="funnelChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Zone Heatmap -->
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-map"></i> Zone Activity</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="heatmapChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dwell Times -->
+<div class="row g-3">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-clock"></i> Average Dwell Time by Zone</h5>
+            </div>
+            <div class="card-body">
+                <div id="dwellTimesContainer">
+                    <p class="text-muted">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Overlay -->
+<div id="loadingOverlay" style="display: none;">
+    <div class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading dashboard data...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    const STORE_ID = "{{ store_id }}";
+    const REFRESH_INTERVAL = 5000;
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Video - Store Intelligence{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-cloud-upload"></i> Upload CCTV Footage</h4>
+            </div>
+            <div class="card-body">
+                <!-- Upload Form -->
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="videoFile" class="form-label">Select Video File</label>
+                        <input type="file" class="form-control" id="videoFile" name="file" 
+                               accept=".mp4,.avi,.mov,.mkv" required>
+                        <div class="form-text">Supported formats: MP4, AVI, MOV, MKV (Max 500MB)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cameraType" class="form-label">Camera Type</label>
+                        <select class="form-select" id="cameraType" name="camera_type" required>
+                            <option value="">Select camera type...</option>
+                            <option value="entry">Entry Camera</option>
+                            <option value="mainfloor">Main Floor Camera</option>
+                            <option value="billing">Billing Camera</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="storeId" class="form-label">Store ID</label>
+                        <input type="text" class="form-control" id="storeId" name="store_id" 
+                               value="STORE_BLR_002" required>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg" id="uploadBtn">
+                            <i class="bi bi-upload"></i> Upload & Process Video
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Progress Section -->
+                <div id="progressSection" class="mt-4" style="display: none;">
+                    <h5>Processing Status</h5>
+                    <div class="progress">
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <p id="statusText" class="mt-2 text-muted"></p>
+                </div>
+
+                <!-- Result Section -->
+                <div id="resultSection" class="mt-4" style="display: none;">
+                    <div id="resultAlert"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-info-circle"></i> How it works</h5>
+                <ol>
+                    <li>Upload your CCTV footage (MP4, AVI, MOV, or MKV format)</li>
+                    <li>Select the camera type (Entry, Main Floor, or Billing)</li>
+                    <li>Click "Upload & Process Video" to start analysis</li>
+                    <li>Wait for processing to complete (may take several minutes)</li>
+                    <li>View results in the <a href="/dashboard">Dashboard</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}
